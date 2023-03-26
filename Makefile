@@ -14,7 +14,7 @@ BINDIR := bin
 
 EXEFILE := start
 
-objs := $(OBJDIR)/start.o $(OBJDIR)/dirfiles.o $(OBJDIR)/rz_datetime.o $(OBJDIR)/rz_filesystem.o
+objs := $(OBJDIR)/start.o $(OBJDIR)/rz_dirfiles.o $(OBJDIR)/rz_datetime.o $(OBJDIR)/rz_filesystem.o
 
 # make
 $(BINDIR)/$(EXEFILE): $(objs)
@@ -27,9 +27,9 @@ $(OBJDIR)/start.o: $(SRCDIR)/start.cpp
 	$(CXX) $(FLAGS) -c $(SRCDIR)/start.cpp -o $(OBJDIR)/start.o
 
 # dirfiles
-$(OBJDIR)/dirfiles.o: $(SRCDIR)/dirfiles.cpp $(SRCDIR)/dirfiles.h
+$(OBJDIR)/dirfiles.o: $(SRCDIR)/rz_dirfiles.cpp $(SRCDIR)/rz_dirfiles.h
 	mkdir -p $(OBJDIR)
-	$(CXX) $(FLAGS) -c $(SRCDIR)/dirfiles.cpp -o $(OBJDIR)/dirfiles.o
+	$(CXX) $(FLAGS) -c $(SRCDIR)/rz_dirfiles.cpp -o $(OBJDIR)/rz_dirfiles.o
 
 # rz_datetime
 $(OBJDIR)/rz_datetime.o: $(SRCDIR)/rz_datetime.cpp $(SRCDIR)/rz_datetime.h

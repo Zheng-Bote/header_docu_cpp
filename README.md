@@ -60,6 +60,7 @@ _scanned / collected Meta data:_
 -   BRIEF
 -   DESC
 -   Last Modified
+-   file size
 -   SHA256 filehash
 
 So, this tool is focussed on older libraries which doesn't use the docs-as-code approach.
@@ -115,6 +116,46 @@ https://github.com/jarro2783/cxxopts
     - within the main dir of the project, execute on the commandline `make`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+## Usage
+
+### SYNTAX:
+
+```header_docu_cpp -h | header_docu_cpp --help
+
+     -c, --css arg   include external CSS file for html output (default: false)
+
+     -d, --dir arg   parse directory (default: .)
+
+     -e, --ext arg   file extension (default: h)
+
+     -f, --file arg  1 single textfile
+
+     -o, --out arg   output type md | html (default: md)
+
+     -h, --help      Print usage
+
+     -v, --version   Version
+```
+
+#### EXAMPLES:
+
+``` /usr/local/bin/header_docu_cpp --dir . --ext h --out md ````
+// read/parse all \*.h files in the current directory
+
+``` /usr/local/bin/header_docu_cpp --file ~/DEV/CPP/header_docu/main.cpp --out html ````
+// read/parse single file and output as HTML5
+
+### RETURN:
+
+     output.md | output.html
+     void
+
+### HISTORY:
+
+> | Version | Date       | Developer | Comments |
+> | ------- | ---------- | --------- | -------- |
+> | 0.1.0   | 2023-03-25 | RZheng    | created  |
 
 <!-- ROADMAP -->
 
