@@ -121,7 +121,8 @@ https://github.com/jarro2783/cxxopts
 
 ### SYNTAX:
 
-```header_docu_cpp -h | header_docu_cpp --help
+```
+header_docu_cpp -h | header_docu_cpp --help
 
      -c, --css arg   include external CSS file for html output (default: false)
 
@@ -140,10 +141,16 @@ https://github.com/jarro2783/cxxopts
 
 #### EXAMPLES:
 
-``` /usr/local/bin/header_docu_cpp --dir . --ext h --out md ````
+```
+/usr/local/bin/header_docu_cpp --dir . --ext h --out md
+```
+
 // read/parse all \*.h files in the current directory
 
-``` /usr/local/bin/header_docu_cpp --file ~/DEV/CPP/header_docu/main.cpp --out html ````
+```
+/usr/local/bin/header_docu_cpp --file ~/DEV/CPP/header_docu/main.cpp --out html
+```
+
 // read/parse single file and output as HTML5
 
 ### RETURN:
