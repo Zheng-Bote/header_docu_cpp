@@ -45,6 +45,8 @@
 
 ## About The Project
 
+:arrow_right: <mark>:warning: still under construction :warning:</mark> :arrow_left:
+
 ### Create documentation from file header (e.g. \*.c[pp], \*.h[pp], ...)
 
 With great respect to Doxygen, JSDoc or DoxDox, but they all reading / parsing the complete textfile.
@@ -54,16 +56,22 @@ With great respect to Doxygen, JSDoc or DoxDox, but they all reading / parsing t
 _scanned / collected Meta data:_
 
 -   TITLE
+-   BRIEF
+-   DESC
 -   VERSION
 -   AUTHOR
 -   LICENSE
--   BRIEF
--   DESC
 -   Last Modified
 -   file size
 -   SHA256 filehash
 
 So, this tool is focussed on older libraries which doesn't use the docs-as-code approach.
+
+**Comment**
+
+This is yet another version of the commandline tool, written in plain C++20.
+
+There's another version, written in QT5 with C++17 : <a href="https://github.com/Zheng-Bote/header_docu" alt="header_docu QT" title="https://github.com/Zheng-Bote/header_docu">header_docu QT5 C++17</a>
 
 ### docs-as-code approach:
 
@@ -72,12 +80,6 @@ see:
 -   <a href="https://docs-as-co.de/" alt="docs-as-code" title="https://docs-as-co.de/">docs-as-code</a>
 -   <a href="https://doctoolchain.org/docToolchain" alt="docToolchain" title="https://doctoolchain.org/docToolchain">docToolchain (user site)</a>
 -   <a href="https://github.com/doctoolchain/doctoolchain/" alt="docToolchain dev" title="https://github.com/doctoolchain/doctoolchain/">docToolchain (Github)</a>
-
-**Comment**
-
-This is yet another version of the commandline tool, written in plain C++20.
-
-There's another version, written in QT5 with C++17 : <a href="https://github.com/Zheng-Bote/header_docu" alt="header_docu QT" title="https://github.com/Zheng-Bote/header_docu">header_docu QT5 C++17</a>
 
 <!-- GETTING STARTED -->
 
@@ -143,15 +145,13 @@ header_docu_cpp -h | header_docu_cpp --help
 
 ```
 /usr/local/bin/header_docu_cpp --dir . --ext h --out md
-```
-
 // read/parse all \*.h files in the current directory
+```
 
 ```
 /usr/local/bin/header_docu_cpp --file ~/DEV/CPP/header_docu/main.cpp --out html
-```
-
 // read/parse single file and output as HTML5
+```
 
 ### RETURN:
 
@@ -224,5 +224,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ZHENG Robert Zhèng Bó Tè 郑 伯特
 
 Project Link: [https://github.com/Zheng-Bote/https://github.com/Zheng-Bote/header_docu_cpp/](https://github.com/Zheng-Bote/header_docu_cpp/)
+
+:vulcan_salute:
 
 <p align="right">(<a href="#top">back to top</a>)</p>
