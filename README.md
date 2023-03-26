@@ -74,7 +74,8 @@ see:
 
 **Comment**
 
-This is yet another version of the commandline tool, written in plain C++20
+This is yet another version of the commandline tool, written in plain C++20.
+
 There's another version, written in QT5 with C++17 : <a href="https://github.com/Zheng-Bote/header_docu" alt="header_docu QT" title="https://github.com/Zheng-Bote/header_docu">header_docu QT5 C++17</a>
 
 <!-- GETTING STARTED -->
@@ -88,7 +89,9 @@ There's another version, written in QT5 with C++17 : <a href="https://github.com
 -   developer tools with make
 
 _DEPENDENCIES:_
+
 cxxopts
+
 a lightweight C++ option parser library, supporting the standard GNU style syntax for options.
 https://github.com/jarro2783/cxxopts
 
@@ -110,22 +113,6 @@ https://github.com/jarro2783/cxxopts
     - configure the Makefile var FLAGS to DEBUG_FLAGS or RELEASE_FLAGS
 2. build
     - within the main dir of the project, execute on the commandline `make`
-
-the recommended way to use the libraries would be to install the additional <a href="https://github.com/Zheng-Bote/ESP32_libs" alt="ESP32_libs" title="https://github.com/Zheng-Bote/ESP32_libs">ESP32_libs</a>
-
-and replace
-
-old:
-
-```
-#include "myESP32lib.h"
-```
-
-new:
-
-```
-#include <ESP32_libs/myESP32lib.h>
-```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -149,7 +136,7 @@ new:
 
 -   [ ] build Windows desktop app with C#
 
--   [x] make support for compilation and installation
+-   [x] make support for installation
 
 -   [ ] CMake support for compilation and installation
 
@@ -188,6 +175,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ZHENG Robert Zhèng Bó Tè 郑 伯特
 
-Project Link: [https://github.com/Zheng-Bote/https://github.com/Zheng-Bote/header_docu_cpp/](https://github.com/Zheng-Bote/https://github.com/Zheng-Bote/header_docu_cpp/)
+Project Link: [https://github.com/Zheng-Bote/https://github.com/Zheng-Bote/header_docu_cpp/](https://github.com/Zheng-Bote/header_docu_cpp/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
