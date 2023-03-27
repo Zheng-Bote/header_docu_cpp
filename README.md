@@ -91,18 +91,22 @@ see:
 -   installed C++ compiler like gnu++ or clang++ with C++20 support
 -   developer tools with make
 
-_DEPENDENCIES:_
+#### DEPENDENCIES:
 
-cxxopts
+_cxxopts_
 
 a lightweight C++ option parser library, supporting the standard GNU style syntax for options.
 https://github.com/jarro2783/cxxopts
+
+_OpenSSL_
+
+OpenSSL (openssl-dev) is needed for creating SHA2-256Bit Hashes for strings and files.
 
 ### Installation
 
 1. Clone the repo
     ```sh
-    git clone https://github.com/Zheng-Bote/https://github.com/Zheng-Bote/header_docu_cpp/.git
+    git clone https://github.com/Zheng-Bote/header_docu_cpp/.git
     ```
 2. install
     - not yet implemented
