@@ -73,7 +73,7 @@ _scanned / collected Meta data:_
 
 So, this tool is focussed on older libraries which doesn't use the docs-as-code approach.
 
-**Comment**
+### built with
 
 This is yet another version of the commandline tool, written in plain C++20.
 

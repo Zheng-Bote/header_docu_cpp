@@ -50,4 +50,3 @@ $(OBJDIR)/rz_crypt.o: $(SRCDIR)/rz_crypt.cpp $(SRCDIR)/rz_crypt.h
 # clean
 clean:
 	rm -f $(BINDIR)/start $(OBJDIR)/*
-

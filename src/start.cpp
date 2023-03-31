@@ -23,13 +23,15 @@ Comment:
 SYNTAX:
     header_docu -h | header_docu --help
 
-    -d, --dir arg     parse directory (default: .)
-    -e, --ext arg     file extension (default: .h)
-    -f, --file arg    1 single textfile: path/file
-    -o, --out arg     output type: md | html | json | csv | adoc(default: html)
-    -t, --target arg  target output dir (default: ./header_docu_cpp/)
-    -h, --help        Print usage
-    -v, --version     Version
+  -d, --dir arg     parse directory (default: .)
+  -e, --ext arg     file extension (default: .h)
+  -f, --file arg    1 single textfile: path/file
+  -o, --out arg     output type: md | html | json | csv | adoc (default:
+                    html)
+  -s, --single arg  single output files: yes | no (default: yes)
+  -t, --target arg  target output dir (default: ./header_docu_cpp/)
+  -h, --help        Print usage
+  -v, --version     Version
 EXAMPLES:
     /usr/local/bin/header_docu --dir . --ext h --out md // read/parse all *.h
 files in the current directory /usr/local/bin/header_docu --file
@@ -41,7 +43,8 @@ output.md | output.html void
 HISTORY:
 Version | Date      | Developer        | Comments
 --------|-----------|------------------|---------------------------------------------------------------
-0.3.0   |2023-03-24 | RZheng           | created
+0.1.0   |2023-03-24 | RZheng           | created
+0.2.0   |2023-03-31 | RZheng           | extended
 */
 
 /*******************************************************/
@@ -153,7 +156,8 @@ int main(int argc, char *argv[]) {
   std::map<std::string, std::string> mapKeys = {
       {"DESC", ""},    {"TITLE", ""},     {"AUTHOR", ""},       {"LICENSE", ""},
       {"VERSION", ""}, {"COPYRIGHT", ""}, {"SOURCE", ""},       {"COMMENT", ""},
-      {"SYNTAX", ""},  {"HISTORY", ""},   {"DEPENDENCIES", ""}, {"BRIEF", ""}};
+      {"SYNTAX", ""},  {"HISTORY", ""},   {"DEPENDENCIES", ""}, {"BRIEF", ""},
+      {"PERM", ""}};
 
   std::map<std::string, int> mapExt = {
       {"gmd", 1}, {"html", 2}, {"json", 3}, {"csv", 4}, {"adoc", 5}};
@@ -171,6 +175,7 @@ int main(int argc, char *argv[]) {
     std::string temp = mapKeys["TITLE"];
     std::cout << "single: " << temp << "\n";
     mapKeys["SHA256"] = rz_crypt::sha256(singleFile);
+    mapKeys["PERM"] = rz_files::filePerm(singleFile);
     mapKeys["SIZE"] = rz_files::fileSize(singleFile);
     mapKeys["LAST_MODIFIED"] = rz_files::lastWriteTime(singleFile);
     countedFiles = 1;
