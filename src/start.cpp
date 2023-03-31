@@ -154,10 +154,11 @@ int main(int argc, char *argv[]) {
 */
 
   std::map<std::string, std::string> mapKeys = {
-      {"DESC", ""},    {"TITLE", ""},     {"AUTHOR", ""},       {"LICENSE", ""},
-      {"VERSION", ""}, {"COPYRIGHT", ""}, {"SOURCE", ""},       {"COMMENT", ""},
-      {"SYNTAX", ""},  {"HISTORY", ""},   {"DEPENDENCIES", ""}, {"BRIEF", ""},
-      {"PERM", ""}};
+      {"DESC", ""},     {"TITLE", ""},        {"AUTHOR", ""},
+      {"LICENSE", ""},  {"VERSION", ""},      {"COPYRIGHT", ""},
+      {"SOURCE", ""},   {"COMMENT", ""},      {"SYNTAX", ""},
+      {"HISTORY", ""},  {"DEPENDENCIES", ""}, {"BRIEF", ""},
+      {"FILE_PERM", ""}};
 
   std::map<std::string, int> mapExt = {
       {"gmd", 1}, {"html", 2}, {"json", 3}, {"csv", 4}, {"adoc", 5}};

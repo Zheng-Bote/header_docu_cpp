@@ -328,11 +328,11 @@ void clearMapVals(std::map<std::string, std::string> &mapKeys) {
   for (auto const &[key, val] : mapKeys) {
     mapKeys[key] = "";
   }
-  mapKeys = {{"DESC", ""},    {"TITLE", ""},        {"AUTHOR", ""},
-             {"LICENSE", ""}, {"VERSION", ""},      {"COPYRIGHT", ""},
-             {"SOURCE", ""},  {"COMMENT", ""},      {"SYNTAX", ""},
-             {"HISTORY", ""}, {"DEPENDENCIES", ""}, {"BRIEF", ""},
-             {"PERM", ""}};
+  mapKeys = {{"DESC", ""},     {"TITLE", ""},        {"AUTHOR", ""},
+             {"LICENSE", ""},  {"VERSION", ""},      {"COPYRIGHT", ""},
+             {"SOURCE", ""},   {"COMMENT", ""},      {"SYNTAX", ""},
+             {"HISTORY", ""},  {"DEPENDENCIES", ""}, {"BRIEF", ""},
+             {"FILE_PERM", ""}};
 }
 
 /**
@@ -624,7 +624,7 @@ int parseDirContent(std::map<std::string, std::string> &mapKeys,
           mapKeys["SHA256"] = rz_crypt::sha256(pathFile);
           mapKeys["SIZE"] = fileSize(pathFile);
           mapKeys["LAST_MODIFIED"] = lastWriteTime(pathFile);
-          mapKeys["PERM"] = filePerm(pathFile);
+          mapKeys["FILE_PERM"] = filePerm(pathFile);
           if (mapKeys["TITLE"].empty()) {
             mapKeys["TITLE"] = p.filename();
           }
@@ -714,7 +714,7 @@ int parseDirRek(std::map<std::string, std::string> &mapKeys,
           mapKeys["SHA256"] = rz_crypt::sha256(pathFile);
           mapKeys["SIZE"] = fileSize(pathFile);
           mapKeys["LAST_MODIFIED"] = lastWriteTime(pathFile);
-          mapKeys["PERM"] = filePerm(pathFile);
+          mapKeys["FILE_PERM"] = filePerm(pathFile);
           if (mapKeys["TITLE"].empty()) {
             mapKeys["TITLE"] = p.filename();
           }

@@ -67,7 +67,7 @@ _scanned / collected Meta data:_
 -   SYNTAX
 -   HISTORY
 -   DEPENDENCIES
--   PERM            (file permssions)
+-   FILE_PERM       (file permssions)
 -   LAST_MODIFIED   (file last modified)
 -   SIZE            (file size in bytes)
 -   SHA256          (SHA2-256 filehash)
