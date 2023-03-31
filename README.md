@@ -67,6 +67,7 @@ _scanned / collected Meta data:_
 -   SYNTAX
 -   HISTORY
 -   DEPENDENCIES
+-   PERM            (file permssions)
 -   LAST_MODIFIED   (file last modified)
 -   SIZE            (file size in bytes)
 -   SHA256          (SHA2-256 filehash)
@@ -201,6 +202,8 @@ header_docu_cpp -h | header_docu_cpp --help
 -   [x] get SHA2-256 filehash
 
 -   [x] file last modified time
+
+-   [x] file permissions
 
 -   [x] save output results in separared file[s] or in one file
 
