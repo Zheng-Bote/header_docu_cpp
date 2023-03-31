@@ -58,12 +58,18 @@ _scanned / collected Meta data:_
 -   TITLE
 -   BRIEF
 -   DESC
--   VERSION
 -   AUTHOR
 -   LICENSE
--   Last Modified
--   file size
--   SHA256 filehash
+-   VERSION
+-   COPYRIGHT
+-   SOURCE
+-   COMMENT
+-   SYNTAX
+-   HISTORY
+-   DEPENDENCIES
+-   LAST_MODIFIED   (file last modified)
+-   SIZE            (file size in bytes)
+-   SHA256          (SHA2-256 filehash)
 
 So, this tool is focussed on older libraries which doesn't use the docs-as-code approach.
 
@@ -130,19 +136,22 @@ OpenSSL (openssl-dev) is needed for creating SHA2-256Bit Hashes for strings and 
 ```
 header_docu_cpp -h | header_docu_cpp --help
 
-     -c, --css arg   include external CSS file for html output (default: false)
+    -d, --dir arg     parse directory (default: .)
 
-     -d, --dir arg   parse directory (default: .)
+    -e, --ext arg     file extension (default: .h)
 
-     -e, --ext arg   file extension (default: h)
+    -f, --file arg    1 single textfile: path/file
 
-     -f, --file arg  1 single textfile
+    -o, --out arg     output type: md | html | json | csv | adoc (default: 
+                    html)
 
-     -o, --out arg   output type md | html (default: md)
+    -s, --single arg  single output files: yes | no (default: yes)
 
-     -h, --help      Print usage
+    -t, --target arg  target output dir (default: ./header_docu_cpp/)
 
-     -v, --version   Version
+    -h, --help        Print usage
+
+    -v, --version     Version
 ```
 
 #### EXAMPLES:
@@ -167,6 +176,7 @@ header_docu_cpp -h | header_docu_cpp --help
 > | Version | Date       | Developer | Comments |
 > | ------- | ---------- | --------- | -------- |
 > | 0.1.0   | 2023-03-25 | RZheng    | created  |
+> | 0.2.0   | 2023-03-31 | RZheng    | extended |
 
 <!-- ROADMAP -->
 
@@ -176,9 +186,23 @@ header_docu_cpp -h | header_docu_cpp --help
 
 -   [x] migrate QT commandline to vanilla cxx (this one, C++20 ongoing)
 
--   [ ] create optional md file[s]
+-   [x] create optional md file[s]
 
--   [ ] create optional HTML5 file[s]
+-   [x] create optional Github md file[s]
+
+-   [x] create optional ASCIIdoc (adoc) file[s]
+
+-   [x] create optional JSON file[s]
+
+-   [x] create optional csv file[s]
+
+-   [x] create optional HTML5 file[s]
+
+-   [x] get SHA2-256 filehash
+
+-   [x] file last modified time
+
+-   [x] save output results in separared file[s] or in one file
 
 -   [ ] create optional SBOM (spdx) json file[s]
 
@@ -188,7 +212,7 @@ header_docu_cpp -h | header_docu_cpp --help
 
 -   [ ] build Windows desktop app with C#
 
--   [x] make support for installation
+-   [ ] make support for installation
 
 -   [ ] CMake support for compilation and installation
 

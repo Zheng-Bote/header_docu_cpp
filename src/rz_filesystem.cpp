@@ -1,10 +1,55 @@
+/*
+TITLE:
+    rz_files.cpp
+BRIEF:
+    lib for filesystem
+VERSION:
+    1.3.0
+DESC:
+    header_docu_cpp is a small nafty C++ commandline tool to read the first
+comment block of a textfile and outputs it as HTML5- or markdown- snippet
+    DEPENDENCIES:
+        cxxopts
+        a lightweight C++ option parser library, supporting the standard GNU
+style syntax for options. https://github.com/jarro2783/cxxopts License: gpl2
+Author:
+    ZHENG Robert
+COPYRIGHT:
+    ZHENG Robert
+SOURCE:
+    https://github.com/Zheng-Bote/header_docu
+Comment:
+    keinen
+SYNTAX:
+    header_docu -h | header_docu --help
+
+HISTORY:
+Version | Date       | Developer        | Comments
+------- | ---------- | ---------------- |---------
+0.3.0   | 2023-03-24 | RZheng           | created
+*/
+
+/*******************************************************/
+
 #include "rz_filesystem.h"
 
-namespace rz_filesystem{
+namespace rz_filesystem {
 namespace fs = std::filesystem;
 
-std::string test() {
-    return ("rz_filesystem: Hello World");
+std::string test() { return ("rz_filesystem: Hello World"); }
+
+std::string makeDir(std::string targetDir) {
+
+  if (!fs::create_directory(targetDir)) {
+    return (targetDir + " allready exist");
+  }
+  try {
+    targetDir = fs::canonical(targetDir);
+  } catch (const std::exception &e) {
+    return (e.what());
+  }
+
+  return (targetDir);
 }
 
 /**
@@ -33,20 +78,19 @@ std::string test() {
  * system error message
  */
 std::string makeDir(std::string mainDir, std::string childDir) {
-    std::string targetDir {mainDir};
-    targetDir.append("/" + childDir);
+  std::string targetDir{mainDir};
+  targetDir.append("/" + childDir);
 
-    if(! fs::create_directory(targetDir)) {
-        return(targetDir + " allready exist");
-    }
-    try {
-         targetDir = fs::canonical(targetDir);
-    }
-    catch (const std::exception& e) {
-        return(e.what());
-    }
+  if (!fs::create_directory(targetDir)) {
+    return (targetDir + " allready exist");
+  }
+  try {
+    targetDir = fs::canonical(targetDir);
+  } catch (const std::exception &e) {
+    return (e.what());
+  }
 
-    return(targetDir);
+  return (targetDir);
 }
 
 /**
@@ -62,12 +106,11 @@ std::string makeDir(std::string mainDir, std::string childDir) {
  * directory doesn't exists
  */
 bool existDir(std::string dir) {
-    if(! fs::exists(dir)) {
-        return false;
-    }
-    else {
-        return true;
-    }
+  if (!fs::exists(dir)) {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 /**
@@ -85,18 +128,18 @@ bool existDir(std::string dir) {
  * |-- cxxopts-config-version.cmake
  */
 std::string dirTree(std::string dir) {
-    std::string dirTree = dir + "\n";
-    std::filesystem::path start(dir);
-    std::filesystem::recursive_directory_iterator di(start), end;
+  std::string dirTree = dir + "\n";
+  std::filesystem::path start(dir);
+  std::filesystem::recursive_directory_iterator di(start), end;
 
-    while(di != end) {
-        for(int i = 0; i < di.depth(); ++i) {
-            dirTree.append(" | ");
-        }
-        dirTree.append(" |-- " + di->path().filename().string() + "\n");
-        ++di;
+  while (di != end) {
+    for (int i = 0; i < di.depth(); ++i) {
+      dirTree.append(" | ");
     }
-    return(dirTree);
+    dirTree.append(" |-- " + di->path().filename().string() + "\n");
+    ++di;
+  }
+  return (dirTree);
 }
 
 /**
@@ -109,36 +152,33 @@ std::string dirTree(std::string dir) {
  * @return std::string
  */
 std::string listDirContent(std::string dir) {
-    std::string dirTree = dir + "\n";
-    std::string temp {};
+  std::string dirTree = dir + "\n";
+  std::string temp{};
 
-    try {
-        fs::path pfad(dir);
-        fs::directory_iterator di(pfad), ende;
-        while(di != ende) {
-            auto p = di->path();
-            temp = p.filename();
-            dirTree.append(temp + "\t");
-            if(fs::is_directory(p)) {
-                dirTree.append(" (Directory)\n");
-            }
-            else {
-                temp = std::to_string(fs::file_size(p));
-                dirTree.append(temp + " Bytes\t");
-                temp = p.extension();
-                dirTree.append("\tExtension: " + temp + "\n");
-                temp = fs::canonical(p);
-                dirTree.append("\tPath: " + temp + "\n");
-            }
-            ++di;
-        }
+  try {
+    fs::path pfad(dir);
+    fs::directory_iterator di(pfad), ende;
+    while (di != ende) {
+      auto p = di->path();
+      temp = p.filename();
+      dirTree.append(temp + "\t");
+      if (fs::is_directory(p)) {
+        dirTree.append(" (Directory)\n");
+      } else {
+        temp = std::to_string(fs::file_size(p));
+        dirTree.append(temp + " Bytes\t");
+        temp = p.extension();
+        dirTree.append("\tExtension: " + temp + "\n");
+        temp = fs::canonical(p);
+        dirTree.append("\tPath: " + temp + "\n");
+      }
+      ++di;
     }
-    catch (const std::exception& e) {
-        dirTree.append("Display Dir " + dir + " failed:\n" + e.what() + "\n");
-    }
-    return(dirTree);
+  } catch (const std::exception &e) {
+    dirTree.append("Display Dir " + dir + " failed:\n" + e.what() + "\n");
+  }
+  return (dirTree);
 }
-
 
 /* the end*/
-}
+} // namespace rz_filesystem

@@ -1,10 +1,7 @@
 #include "rz_crypt.h"
 
-
 namespace rz_crypt {
-std::string test() {
-    return ("crypt: Hello World");
-}
+std::string test() { return ("crypt: Hello World"); }
 
 /**
  * @brief sha256(const std::string str)
@@ -17,7 +14,7 @@ std::string test() {
  * @return str
  * e.g.: 2b9f6eaf2bea188d6cdd2267b9da7ed7f4451b9e6e5ec62560078d870adbbf34
  */
-std::string sha256(const std::string str){
+std::string sha256(const std::string str) {
   unsigned char hash[SHA256_DIGEST_LENGTH];
 
   SHA256_CTX sha256;
@@ -27,10 +24,11 @@ std::string sha256(const std::string str){
 
   std::stringstream ss;
 
-  for(int i = 0; i < SHA256_DIGEST_LENGTH; i++){
-    ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>( hash[i] );
+  for (int i = 0; i < SHA256_DIGEST_LENGTH; i++) {
+    ss << std::hex << std::setw(2) << std::setfill('0')
+       << static_cast<int>(hash[i]);
   }
   return ss.str();
 }
 
-}
+} // namespace rz_crypt
