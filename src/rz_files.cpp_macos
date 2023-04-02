@@ -68,6 +68,7 @@ const std::string wDateTime(std::time_t fileTime) {
 std::string lastWriteTime(std::string pathToFile) {
   const auto fileTime = std::filesystem::last_write_time(pathToFile);
   std::time_t cftime = decltype(fileTime)::clock::to_time_t(fileTime);
+
   return (wDateTime(cftime));
 }
 

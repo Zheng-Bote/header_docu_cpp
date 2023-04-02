@@ -120,12 +120,26 @@ OpenSSL (openssl-dev) is needed for creating SHA2-256Bit Hashes for strings and 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### configuration
+### configuration and build
 
-1. configure the Makefile to your environment
+#### MacOS
+
+1. rename Makefile_macos to Makefile
+2. rename src/rz_files.h_macos to src/rz_files.h
+3. rename src/rz_files.cpp_macos to src/rz_files.cpp
+
+#### Linux
+
+1. rename Makefile_linux to Makefile
+2. rename src/rz_files.h__linux to src/rz_files.h
+3. rename src/rz_files.cpp_linux to src/rz_files.cpp
+
+### all OS
+
+4. configure the Makefile to your environment
     - gnu++ or clang++
     - configure the Makefile var FLAGS to DEBUG_FLAGS or RELEASE_FLAGS
-2. build
+5. build
     - within the main dir of the project, execute on the commandline `make`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -174,10 +188,11 @@ header_docu_cpp -h | header_docu_cpp --help
 
 ### HISTORY:
 
-> | Version | Date       | Developer | Comments |
-> | ------- | ---------- | --------- | -------- |
-> | 0.1.0   | 2023-03-25 | RZheng    | created  |
-> | 0.2.0   | 2023-03-31 | RZheng    | extended |
+> | Version | Date       | Developer | Comments           |
+> | ------- | ---------- | --------- | ------------------ |
+> | 0.1.0   | 2023-03-25 | RZheng    | created            |
+> | 0.2.0   | 2023-03-31 | RZheng    | extended           |
+> | 0.3.0   | 2023-04-02 | RZheng    | separated to MacOS |
 
 <!-- ROADMAP -->
 
