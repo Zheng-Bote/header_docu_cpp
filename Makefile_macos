@@ -50,3 +50,8 @@ $(OBJDIR)/rz_crypt.o: $(SRCDIR)/rz_crypt.cpp $(SRCDIR)/rz_crypt.h
 # clean
 clean:
 	rm -f $(BINDIR)/start $(OBJDIR)/*
+
+# create Dependency file
+dep:
+	cd src && clang++ -MD -MF dependencies.txt start.cpp
+
