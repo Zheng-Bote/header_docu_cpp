@@ -4,7 +4,7 @@ TITLE:
 BRIEF:
     header_docu_cpp (main.cpp)
 VERSION:
-    1.3.0
+    0.4.0
 DESC:
     header_docu_cpp is a small nafty C++ commandline tool to read the first
 comment block of a textfile and outputs it as HTML5- or markdown- snippet
@@ -41,10 +41,13 @@ RETURN:
 output.md | output.html void
 
 HISTORY:
-Version | Date      | Developer        | Comments
---------|-----------|------------------|---------------------------------------------------------------
-0.1.0   |2023-03-24 | RZheng           | created
-0.2.0   |2023-03-31 | RZheng           | extended
+Version | Date       | Developer | Comments
+--------|------------|-----------|------------------------------------
+0.1.0   | 2023-03-24 | RZheng    | created                            |
+0.2.0   | 2023-03-31 | RZheng    | file permission added              |
+0.2.0   | 2023-03-31 | RZheng    | SHA2-256 filehash added            |
+0.3.0   | 2023-04-02 | RZheng    | separated to MacOS                 |
+0.4.0   | 2023-04-02 | RZheng    | Linux threads added to file output |
 */
 
 /*******************************************************/
@@ -94,65 +97,6 @@ int main(int argc, char *argv[]) {
   bool singleFiles = true;
   int countedFiles{0};
 
-  /*
-      std::string newDir = rz_filesystem::makeDir(".", "_SBOM_");
-      std::cout << "newDir: " << newDir << "\n";
-
-      if(rz_filesystem::existDir(newDir)) {
-          std::cout << newDir << " exist\n";
-      }
-      else {
-          std::cout << newDir << " doesn't exist\n";
-      }
-
-      std::string erg =
-     rz_files::filePerm("/Users/zb_bamboo/Downloads/cxxopts-3.1.1"); std::cout
-     << "Perm: " << erg << "\n";
-
-      erg = rz_files::lastWriteTime("/Users/zb_bamboo/Downloads/cxxopts-3.1.1");
-      std::cout << "LastWriteTime: " << erg << "\n";
-
-      std::string erg =
-     rz_filesystem::dirTree("/Users/zb_bamboo/Downloads/cxxopts-3.1.1");
-      std::cout << erg << "\n";
-
-      std::string erg =
-     rz_file::fileSize("/Users/zb_bamboo/Downloads/cxxopts-3.1.1/CMakeLists.txt");
-      std::cout << erg << "\n";
-
-      std::string erg =
-     rz_files::fileExt("/Users/zb_bamboo/Downloads/cxxopts-3.1.1/CMakeLists.txt");
-      std::cout << erg << "\n";
-
-  std::cout << "filecontent: " << rz_files::readFile("./bin/start") << "\n";
-  std::cout << "SHA256: "
-            << rz_crypt::sha256(
-                   "/Users/zb_bamboo/Downloads/cxxopts-3.1.1/CMakeLists.txt")
-            << std::endl;
-  std::cout << "SHA256:\n"
-            << rz_crypt::sha256(rz_files::readFile("./Makefile")) << "\n";
-
-  std::cout << "listdir:\n\n" << rz_filesystem::listDirContent(".") << "\n";
-
-  std::string *erg = rz_files::readFile("./bin/start");
-  std::cout << "pointer content:\n" << *erg << "\n";
-
-  std::map<std::string, std::string> mapKeys = {
-      {"DESC", ""},    {"TITLE", ""},     {"AUTHOR", ""}, {"LICENSE", ""},
-      {"VERSION", ""}, {"COPYRIGHT", ""}, {"SOURCE", ""}, {"COMMENT", ""}};
-  std::string inFile = "/Volumes/500GB/Dev/Header_Docu01/main.cpp";
-  std::string outFile = "./out.html";
-  rz_files::parseFileToMapKey(mapKeys, inFile);
-  mapKeys["SHA256"] = rz_crypt::sha256(inFile);
-  mapKeys["SIZE"] = rz_files::fileSize(inFile);
-  mapKeys["LModified"] = rz_files::lastWriteTime(inFile);
-
-  rz_files::writeHtmlHeader(outFile);
-  rz_files::writeHtmlCss(outFile);
-  rz_files::writeHtml(mapKeys, outFile);
-  rz_files::writeHtmlEnd(outFile);
-*/
-
   std::map<std::string, std::string> mapKeys = {
       {"DESC", ""},     {"TITLE", ""},        {"AUTHOR", ""},
       {"LICENSE", ""},  {"VERSION", ""},      {"COPYRIGHT", ""},
@@ -161,7 +105,7 @@ int main(int argc, char *argv[]) {
       {"FILE_PERM", ""}};
 
   std::map<std::string, int> mapExt = {
-      {"gmd", 1}, {"html", 2}, {"json", 3}, {"csv", 4}, {"adoc", 5}};
+      {"md", 1}, {"html", 2}, {"json", 3}, {"csv", 4}, {"adoc", 5}};
 
   if (result.count("dir")) {
     targetDir = result["dir"].as<std::string>();
@@ -171,12 +115,11 @@ int main(int argc, char *argv[]) {
   }
   if (result.count("file")) {
     singleFile = result["file"].as<std::string>();
-    std::cout << "file: " << singleFile << "\n";
     rz_files::parseFileToMapKey(mapKeys, singleFile);
     std::string temp = mapKeys["TITLE"];
     std::cout << "single: " << temp << "\n";
     mapKeys["SHA256"] = rz_crypt::sha256(singleFile);
-    mapKeys["PERM"] = rz_files::filePerm(singleFile);
+    mapKeys["FILE_PERM"] = rz_files::filePerm(singleFile);
     mapKeys["SIZE"] = rz_files::fileSize(singleFile);
     mapKeys["LAST_MODIFIED"] = rz_files::lastWriteTime(singleFile);
     countedFiles = 1;
@@ -254,8 +197,11 @@ int main(int argc, char *argv[]) {
     outFile = outputDir;
   }
 
-  std::cout << "\nFiles parsed: " << countedFiles << "\n";
-  std::cout << "output:\n" << outFile << "\n";
+  std::cout << "\n"
+            << rz_datetime::currentDateTime("human") << " : " << countedFiles
+            << " " << searchForExt << " Files in folder " << targetDir
+            << " found. Output stored with format " << outFormat
+            << " in folder " << outFile << "\n";
   /*#################*/
   exit(0);
 }

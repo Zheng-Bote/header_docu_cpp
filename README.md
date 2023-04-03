@@ -43,10 +43,6 @@
 
 <!-- ABOUT THE PROJECT -->
 
-## About The Project
-
-:arrow_right: <mark>:warning: still under construction :warning:</mark> :arrow_left:
-
 ### Create documentation from file header (e.g. \*.c[pp], \*.h[pp], ...)
 
 With great respect to Doxygen, JSDoc or DoxDox, but they all reading / parsing the complete textfile.
@@ -107,7 +103,7 @@ https://github.com/jarro2783/cxxopts
 
 _OpenSSL_
 
-OpenSSL (openssl-dev) is needed for creating SHA2-256Bit Hashes for strings and files.
+OpenSSL ((Library: OpenSSL 3.0.2 15 Mar 2022; Linux: openssl-dev) is needed for creating SHA2-256Bit Hashes for strings and files.
 
 ### Installation
 
@@ -127,12 +123,13 @@ OpenSSL (openssl-dev) is needed for creating SHA2-256Bit Hashes for strings and 
 1. rename Makefile_macos to Makefile
 2. rename src/rz_files.h_macos to src/rz_files.h
 3. rename src/rz_files.cpp_macos to src/rz_files.cpp
+4. rename src/rz_crypto.h_macos to src/rz_crypto.h
+5. rename src/rz_crypto.cpp_macos to src/rz_crypto.cpp
 
 #### Linux
 
-1. rename Makefile_linux to Makefile
-2. rename src/rz_files.h__linux to src/rz_files.h
-3. rename src/rz_files.cpp_linux to src/rz_files.cpp
+1. due to main target, nothing special
+
 
 ### all OS
 
@@ -141,6 +138,14 @@ OpenSSL (openssl-dev) is needed for creating SHA2-256Bit Hashes for strings and 
     - configure the Makefile var FLAGS to DEBUG_FLAGS or RELEASE_FLAGS
 5. build
     - within the main dir of the project, execute on the commandline `make`
+
+*hint*
+In case of linker error, check the syntaxt and change in-/output file _BEFORE_ Includes-/Excludes.
+
+_Example with g++_
+
+`g++ -std=c++20 -o bin/start obj/start.o obj/rz_files.o obj/rz_datetime.o obj/rz_filesystem.o obj/rz_crypt.o -I/usr/include/openssl/ -L/usr/lib/ssl -lcrypto -g3 -O0 -Wall -Wextra -Wpedantic -Wshadow -Wconversion
+`
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -172,13 +177,21 @@ header_docu_cpp -h | header_docu_cpp --help
 #### EXAMPLES:
 
 ```
-/usr/local/bin/header_docu_cpp --dir . --ext h --out md
-// read/parse all \*.h files in the current directory
+/usr/local/bin/header_docu_cpp --dir /volume2/Dev/Cpp/header_docu --ext .h --out md --single yes --target /volume2/Dev/Cpp/header_docu/wiki
+
+bin/header_docu_cpp -d /volume2/Dev/Cpp/header_docu -e .h -o md -s yes -t /volume2/Dev/Cpp/header_docu/wiki
+
+// read/parse all \*.h files in the given directory and store the results in one Github markdown file in the wiki-subfolder
 ```
 
 ```
 /usr/local/bin/header_docu_cpp --file ~/DEV/CPP/header_docu/main.cpp --out html
 // read/parse single file and output as HTML5
+```
+
+*default*
+```
+/usr/local/bin/header_docu_cpp -d . -e .h -o json -s no -t ./header_docu_cpp
 ```
 
 ### RETURN:
@@ -188,11 +201,13 @@ header_docu_cpp -h | header_docu_cpp --help
 
 ### HISTORY:
 
-> | Version | Date       | Developer | Comments           |
-> | ------- | ---------- | --------- | ------------------ |
-> | 0.1.0   | 2023-03-25 | RZheng    | created            |
-> | 0.2.0   | 2023-03-31 | RZheng    | extended           |
-> | 0.3.0   | 2023-04-02 | RZheng    | separated to MacOS |
+> | Version | Date       | Developer | Comments                           |
+> | ------- | ---------- | --------- | ---------------------------------- |
+> | 0.1.0   | 2023-03-25 | RZheng    | created                            |
+> | 0.2.0   | 2023-03-31 | RZheng    | file permission added              |
+> | 0.2.0   | 2023-03-31 | RZheng    | SHA2-256 filehash added            |
+> | 0.3.0   | 2023-04-02 | RZheng    | separated to MacOS                 |
+> | 0.4.0   | 2023-04-02 | RZheng    | Linux threads added to file output |
 
 <!-- ROADMAP -->
 
@@ -221,6 +236,8 @@ header_docu_cpp -h | header_docu_cpp --help
 -   [x] file permissions
 
 -   [x] save output results in separared file[s] or in one file
+
+-   [x] performance improvements for single outfiles (threaded)
 
 -   [ ] create optional SBOM (spdx) json file[s]
 
