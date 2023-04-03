@@ -139,8 +139,8 @@ OpenSSL (Library tested: OpenSSL 3.0.2 15 Mar 2022; Linux: openssl-dev) is neede
 5. build
     - within the main dir of the project, execute on the commandline `make`
 
-*hint*
-In case of linker error, check the syntaxt and change in-/output file _BEFORE_ Includes-/Excludes.
+*hint* +
+In case of linker error, check the syntaxt and change in-/output file _BEFORE_ the Include (-I) and Lib (-L).
 
 _Example with g++_
 
