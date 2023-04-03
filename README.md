@@ -91,7 +91,7 @@ see:
 ### Prerequisites
 
 -   PC or Laptop with Windows, MacOS or Linux \*\_^
--   installed C++ compiler like gnu++ or clang++ with C++20 support
+-   installed C++ compiler like g++ or clang++ with C++20 support
 -   developer tools with make
 
 #### DEPENDENCIES:
@@ -103,7 +103,7 @@ https://github.com/jarro2783/cxxopts
 
 _OpenSSL_
 
-OpenSSL ((Library: OpenSSL 3.0.2 15 Mar 2022; Linux: openssl-dev) is needed for creating SHA2-256Bit Hashes for strings and files.
+OpenSSL (Library tested: OpenSSL 3.0.2 15 Mar 2022; Linux: openssl-dev) is needed for creating SHA2-256Bit Hashes for strings and files.
 
 ### Installation
 
@@ -134,7 +134,7 @@ OpenSSL ((Library: OpenSSL 3.0.2 15 Mar 2022; Linux: openssl-dev) is needed for 
 ### all OS
 
 4. configure the Makefile to your environment
-    - gnu++ or clang++
+    - g++ or clang++
     - configure the Makefile var FLAGS to DEBUG_FLAGS or RELEASE_FLAGS
 5. build
     - within the main dir of the project, execute on the commandline `make`
@@ -146,6 +146,8 @@ _Example with g++_
 
 `g++ -std=c++20 -o bin/start obj/start.o obj/rz_files.o obj/rz_datetime.o obj/rz_filesystem.o obj/rz_crypt.o -I/usr/include/openssl/ -L/usr/lib/ssl -lcrypto -g3 -O0 -Wall -Wextra -Wpedantic -Wshadow -Wconversion
 `
+_see also:_ ```do_build.sh``` (for Linux g++) 
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -189,15 +191,16 @@ bin/header_docu_cpp -d /volume2/Dev/Cpp/header_docu -e .h -o md -s yes -t /volum
 // read/parse single file and output as HTML5
 ```
 
-*default*
+*default:*
 ```
-/usr/local/bin/header_docu_cpp -d . -e .h -o json -s no -t ./header_docu_cpp
+/usr/local/bin/header_docu_cpp -d . -e .h -o json -s yes -t ./header_docu_cpp
 ```
 
 ### RETURN:
 
-     output.md | output.html
-     void
+     2023-04-03 18:22:57 : 5 .cpp Files in folder ./src found. Output stored with format md in folder ./header_docu_cpp
+     
+     exit(0)
 
 ### HISTORY:
 
@@ -207,7 +210,7 @@ bin/header_docu_cpp -d /volume2/Dev/Cpp/header_docu -e .h -o md -s yes -t /volum
 > | 0.2.0   | 2023-03-31 | RZheng    | file permission added              |
 > | 0.2.0   | 2023-03-31 | RZheng    | SHA2-256 filehash added            |
 > | 0.3.0   | 2023-04-02 | RZheng    | separated to MacOS                 |
-> | 0.4.0   | 2023-04-02 | RZheng    | Linux threads added to file output |
+> | 0.4.0   | 2023-04-02 | RZheng    | Linux threads added to multiple file output |
 
 <!-- ROADMAP -->
 
