@@ -1,56 +1,108 @@
-CXX := g++
-CXXFLAGS := -std=c++20 -I/usr/include/openssl/ -L/usr/lib/ssl -lcrypto
-#-stdlib=libc++
+#
+# 'make'        build executable file 'main'
+# 'make clean'  removes all .o and executable files
+#
 
-DEBUG_FLAGS = -g3 -O0
-RELEASE_FLAGS = -DNDEBUG -O3
-WARNING_FLAGS = -Wall -Wextra -Wpedantic -Wshadow -Wconversion
+# define the Cpp compiler to use
+CXX = g++
 
-FLAGS := $(CXXFLAGS) $(DEBUG_FLAGS) $(WARNING_FLAGS)
+# define any compile-time flags
+DEBUG_FLAGS = -g3 -O0 -m64 -Wall -Wextra -Wpedantic -Wshadow -Wconversion
+RELEASE_FLAGS = -O3 -m64 -Wall -Wextra -Wpedantic -Wshadow -Wconversion
 
-# dirs
-SRCDIR := src
-OBJDIR := obj
-BINDIR := bin
+## DEBUG
+#CXXFLAGS	:= -std=c++20 $(DEBUG_FLAGS)
 
-EXEFILE := start
+## BUILD
+CXXFLAGS	:= -std=c++20 $(RELEASE_FLAGS)
 
-objs := $(OBJDIR)/start.o $(OBJDIR)/rz_files.o $(OBJDIR)/rz_datetime.o $(OBJDIR)/rz_filesystem.o $(OBJDIR)/rz_crypt.o
+# define library paths in addition to /usr/lib
+#   if I wanted to include libraries not in /usr/lib I'd specify
+#   their path using -Lpath, something like:
+LFLAGS = -I/usr/include/openssl/ -L/usr/lib/ssl -lcrypto
 
-# make
-$(BINDIR)/$(EXEFILE): $(objs)
-	mkdir -p $(BINDIR)
-	$(CXX) $(FLAGS) -o $@ $^
+EXEFILE := header_docu_cpp
 
-# link
-$(OBJDIR)/start.o: $(SRCDIR)/start.cpp
-	mkdir -p $(OBJDIR)
-	$(CXX) $(FLAGS) -c $(SRCDIR)/start.cpp -o $(OBJDIR)/start.o
+# define output directory
+OUTPUT	:= output
 
-# files
-$(OBJDIR)/rz_files.o: $(SRCDIR)/rz_files.cpp $(SRCDIR)/rz_files.h
-	mkdir -p $(OBJDIR)
-	$(CXX) $(FLAGS) -c $(SRCDIR)/rz_files.cpp -o $(OBJDIR)/rz_files.o
+# define source directory
+SRC		:= src
 
-# rz_datetime
-$(OBJDIR)/rz_datetime.o: $(SRCDIR)/rz_datetime.cpp $(SRCDIR)/rz_datetime.h
-	mkdir -p $(OBJDIR)
-	$(CXX) $(FLAGS) -c $(SRCDIR)/rz_datetime.cpp -o $(OBJDIR)/rz_datetime.o
+# define include directory
+INCLUDE	:= include
 
-# rz_filesystem
-$(OBJDIR)/rz_filesystem.o: $(SRCDIR)/rz_filesystem.cpp $(SRCDIR)/rz_filesystem.h
-	mkdir -p $(OBJDIR)
-	$(CXX) $(FLAGS) -c $(SRCDIR)/rz_filesystem.cpp -o $(OBJDIR)/rz_filesystem.o
+# define lib directory
+LIB		:= lib
 
-# rz_crypt
-$(OBJDIR)/rz_crypt.o: $(SRCDIR)/rz_crypt.cpp $(SRCDIR)/rz_crypt.h
-	mkdir -p $(OBJDIR)
-	$(CXX) $(FLAGS) -c $(SRCDIR)/rz_crypt.cpp -o $(OBJDIR)/rz_crypt.o
+ifeq ($(OS),Windows_NT)
+MAIN	:= $(EXEFILE).exe
+SOURCEDIRS	:= $(SRC)
+INCLUDEDIRS	:= $(INCLUDE)
+LIBDIRS		:= $(LIB)
+FIXPATH = $(subst /,\,$1)
+RM			:= del /q /f
+MD	:= mkdir
+else
+MAIN	:= $(EXEFILE)
+SOURCEDIRS	:= $(shell find $(SRC) -type d)
+INCLUDEDIRS	:= $(shell find $(INCLUDE) -type d)
+LIBDIRS		:= $(shell find $(LIB) -type d)
+FIXPATH = $1
+RM = rm -f
+MD	:= mkdir -p
+endif
 
-# clean
+# define any directories containing header files other than /usr/include
+INCLUDES	:= $(patsubst %,-I%, $(INCLUDEDIRS:%/=%))
+
+# define the C libs
+LIBS		:= $(patsubst %,-L%, $(LIBDIRS:%/=%))
+
+# define the C source files
+SOURCES		:= $(wildcard $(patsubst %,%/*.cpp, $(SOURCEDIRS)))
+
+# define the C object files
+OBJECTS		:= $(SOURCES:.cpp=.o)
+
+# define the dependency output files
+DEPS		:= $(OBJECTS:.o=.d)
+
+#
+# The following part of the makefile is generic; it can be used to
+# build any executable just by changing the definitions above and by
+# deleting dependencies appended to the file from 'make depend'
+#
+
+OUTPUTMAIN	:= $(call FIXPATH,$(OUTPUT)/$(MAIN))
+
+all: $(OUTPUT) $(MAIN)
+	@echo Executing 'all' complete!
+
+$(OUTPUT):
+	$(MD) $(OUTPUT)
+
+$(MAIN): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(OUTPUTMAIN) $(OBJECTS) $(LFLAGS) $(LIBS)
+
+# include all .d files
+-include $(DEPS)
+
+# this is a suffix replacement rule for building .o's and .d's from .c's
+# it uses automatic variables $<: the name of the prerequisite of
+# the rule(a .c file) and $@: the name of the target of the rule (a .o file)
+# -MMD generates dependency output files same name as the .o file
+# (see the gnu make manual section about automatic variables)
+.cpp.o:
+	$(CXX) $(CXXFLAGS) -c -MMD $<  -o $@ $(INCLUDES)
+
+.PHONY: clean
 clean:
-	rm -f $(BINDIR)/start $(OBJDIR)/*
+	$(RM) $(OUTPUTMAIN)
+	$(RM) $(call FIXPATH,$(OBJECTS))
+	$(RM) $(call FIXPATH,$(DEPS))
+	@echo Cleanup complete!
 
-# create Dependency file
-dep:
-	cd src && clang++ -MD -MF dependencies.txt start.cpp
+run: all
+	./$(OUTPUTMAIN)
+	@echo Executing 'run: all' complete!
