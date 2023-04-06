@@ -10,9 +10,6 @@
 #include <map>
 #include <regex>
 
-#include <cstdint>
-#include <thread>
-
 #include "rz_crypt.h"
 #include "rz_datetime.h"
 

@@ -213,6 +213,7 @@ bin/header_docu_cpp -d /volume2/Dev/Cpp/header_docu -e .h -o md -s yes -t /volum
 > | 0.2.0   | 2023-03-31 | RZheng    | SHA2-256 filehash added            |
 > | 0.3.0   | 2023-04-02 | RZheng    | separated to MacOS                 |
 > | 0.4.0   | 2023-04-02 | RZheng    | Linux threads added to multiple file output |
+> | 0.5.0   | 2023-04-06 | RZheng    | Linux threads removed (SBOM topic) |
 
 <!-- ROADMAP -->
 

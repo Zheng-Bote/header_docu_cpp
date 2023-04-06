@@ -739,27 +739,16 @@ int parseDirRek(std::map<std::string, std::string> &mapKeys,
             break;
           }
           case 3: {
-            std::thread thread_json(rz_files::writeJson, std::ref(mapKeys),
-                                    std::ref(outFile));
-            if (thread_json.joinable()) {
-              thread_json.join();
-            }
+            rz_files::writeJson(mapKeys, outFile);
             break;
           }
           case 4: {
-            std::thread thread_csv(rz_files::writeCsv, std::ref(mapKeys),
-                                   std::ref(outFile));
-            if (thread_csv.joinable()) {
-              thread_csv.join();
-            }
+            rz_files::writeCsv(mapKeys, outFile);
+
             break;
           }
           case 5: {
-            std::thread thread_ascii(rz_files::writeAsciiDoc, std::ref(mapKeys),
-                                     std::ref(outFile));
-            if (thread_ascii.joinable()) {
-              thread_ascii.join();
-            }
+            rz_files::writeAsciiDoc(mapKeys, outFile);
             break;
           }
 
