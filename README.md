@@ -243,7 +243,7 @@ bin/header_docu_cpp -d /volume2/Dev/Cpp/header_docu -e .h -o md -s yes -t /volum
 
 -   [x] save output results in separared file[s] or in one file
 
--   [x] performance improvements for single outfiles (threaded)
+-   [ ] performance improvements for single outfiles (threaded)
 
 -   [ ] create optional SBOM (spdx) json file[s]
 
